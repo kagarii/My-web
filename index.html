@@ -12,9 +12,9 @@
         }
 
         html, body {
-            overscroll-behavior: none; /* cegah bounce/overscroll pada iOS/Android */
-            touch-action: manipulation; /* smooth touch tanpa delay */
-            -webkit-tap-highlight-color: transparent; /* hilangkan highlight biru pada tap */
+            overscroll-behavior: none;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -25,9 +25,9 @@
             background-size: 400% 400%;
             animation: gradientFlow 25s ease infinite;
             line-height: 1.6;
-            padding: 80px 15px 100px; /* tambah padding bawah supaya back-to-top tak overlap content */
+            padding: 80px 15px 100px;
             position: relative;
-            cursor: default; /* default cursor pada phone */
+            cursor: default;
         }
 
         body.light-mode {
@@ -41,6 +41,51 @@
             100% { background-position: 0% 50%; }
         }
 
+        /* Loading Screen - Smooth & Professional */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #0a0015, #1e003a);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 1.2s ease;
+        }
+
+        .loader-avatar {
+            width: 140px;
+            border-radius: 50%;
+            border: 6px solid #ff85d9;
+            box-shadow: 0 0 40px rgba(255, 133, 217, 0.7);
+            opacity: 0;
+            transform: scale(0.7);
+            animation: loadAvatar 1.4s forwards 0.3s;
+        }
+
+        @keyframes loadAvatar {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .loader-text {
+            color: #ff85d9;
+            margin-top: 30px;
+            font-size: 1.6rem;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(255, 133, 217, 0.8);
+            opacity: 0;
+            animation: fadeInText 1.6s forwards 0.8s;
+        }
+
+        @keyframes fadeInText {
+            to { opacity: 1; }
+        }
+
+        /* Progress Bar */
         #progress-bar {
             position: fixed;
             top: 0; left: 0;
@@ -61,7 +106,7 @@
             border-radius: 50%;
             box-shadow: 0 0 12px rgba(187, 134, 252, 0.8);
             animation: float 22s infinite linear;
-            will-change: transform; /* optimize performance */
+            will-change: transform;
         }
 
         @keyframes float {
@@ -114,7 +159,7 @@
         .section-icon {
             width: 80px; height: 80px; border-radius: 16px; object-fit: cover;
             box-shadow: 0 6px 20px rgba(0,0,0,0.5); margin-bottom: 12px;
-            transition: transform 0.4s ease; will-change: transform;
+            transition: transform 0.4s ease;
         }
 
         .section:hover .section-icon { transform: scale(1.15); }
@@ -139,7 +184,6 @@
             box-shadow: 0 12px 40px rgba(0,0,0,0.55);
             opacity: 0; transform: translateY(30px);
             transition: opacity 0.8s ease, transform 0.8s ease;
-            will-change: opacity, transform;
         }
 
         .section.visible { opacity: 1; transform: translateY(0); }
@@ -191,7 +235,11 @@
 
         #music-toggle { right: 20px; padding: 0 22px; height: 54px; font-size: 1.05rem; border-radius: 30px; }
 
-        #mode-toggle:hover, #music-toggle:hover { background: rgba(50, 40, 100, 0.98); transform: scale(1.12); }
+        #mode-toggle:hover, #music-toggle:hover {
+            background: rgba(50, 40, 100, 0.98);
+            transform: scale(1.12);
+            box-shadow: 0 0 25px rgba(208, 176, 255, 0.6);
+        }
 
         #back-to-top {
             position: fixed; bottom: 40px; right: 30px; width: 54px; height: 54px;
@@ -201,7 +249,6 @@
             cursor: pointer; opacity: 0; visibility: hidden;
             transition: opacity 0.4s ease, transform 0.4s ease;
             z-index: 99; box-shadow: 0 6px 20px rgba(0,0,0,0.5);
-            will-change: opacity, transform;
         }
 
         #back-to-top.visible { opacity: 1; visibility: visible; }
@@ -234,6 +281,12 @@
 </head>
 <body>
 
+    <!-- Loading Screen - Smooth & Professional -->
+    <div id="loader" class="loader">
+        <img src="https://raw.githubusercontent.com/kagarii/Pict/refs/heads/main/New%20Project%2025%20%5BAA5E64D%5D.png" alt="Kyuuna" class="loader-avatar">
+        <p class="loader-text">Loading Kyuuna's World 🍁</p>
+    </div>
+
     <!-- Progress Bar -->
     <div id="progress-bar"></div>
 
@@ -246,7 +299,6 @@
     <!-- Audio -->
     <audio id="bgMusic" loop>
         <source src="https://files.catbox.moe/psfyjm.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
     </audio>
 
     <!-- Click Sound -->
@@ -318,12 +370,12 @@
             <p>Benefit Murid</p>
             <a href="https://wa.me/60143643556?text=Mau Buy Nokos ✨" class="btn">Contact Kyuuna 🍁</a>
 
-            <h3>SEWA BOT  KYUUNA - MD 🍁</h3>
+            <h3>SEWA BOT KYUUNA - MD 🍁</h3>
             <ul>
-                <li>SEWA 1 MINGGU: <span class="price"> 12K</span></li>
-                <li>SEWA 2 MINGGU: <span class="price"> 25K</span></li>
-                <li>SEWA 1 BULAN: <span class="price"> 45K</span></li>
-                <li>SEWA PERMANEN: <span class="price">  95K</span></li>
+                <li>SEWA 1 MINGGU: <span class="price">12K</span></li>
+                <li>SEWA 2 MINGGU: <span class="price">25K</span></li>
+                <li>SEWA 1 BULAN: <span class="price">45K</span></li>
+                <li>SEWA PERMANEN: <span class="price">95K</span></li>
             </ul>
             <a href="https://wa.me/60143643556?text=Mau Sewa Bot Jaga Grup 💤" class="btn">Contact Kyuuna 🍁</a>
 
@@ -356,7 +408,7 @@
             <p style="margin: 30px 0;">
                 <a href="https://payment.kyuuna.my.id/">Kunjungi Website Pembayaran Kyuuna</a>
             </p>
-            <p> ©all copyright reserved // ®</p>
+            <p>© all copyright reserved // ®</p>
         </footer>
 
     </div>
@@ -368,6 +420,19 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
     <script>
+        // Loading Screen - Smooth & No Jitter
+        window.addEventListener('load', () => {
+            // Paksa reflow supaya tak jitter
+            document.body.offsetHeight;
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 1200); // fade out duration + buffer
+            }, 2000); // tunjuk loading 2 saat
+        });
+
         // Visitor Counter
         let visits = localStorage.getItem('visits') || 0;
         visits++;
@@ -416,7 +481,7 @@
             document.getElementById('progress-bar').style.width = scrolled + '%';
         }, { passive: true });
 
-        // Back to Top - ULTRA STABLE VERSION (no jitter on phone)
+        // Back to Top - ULTRA STABLE
         const backToTop = document.getElementById('back-to-top');
         let lastScroll = 0;
         let ticking = false;
@@ -429,7 +494,7 @@
             scrollTimer = setTimeout(() => {
                 if (!ticking) {
                     window.requestAnimationFrame(() => {
-                        if (lastScroll > 400) {  // threshold lebih tinggi supaya tak sensitif
+                        if (lastScroll > 400) {
                             backToTop.classList.add('visible');
                         } else {
                             backToTop.classList.remove('visible');
@@ -438,7 +503,7 @@
                     });
                     ticking = true;
                 }
-            }, 100);  // debounce 100ms supaya tak update terlalu kerap
+            }, 100);
         }, { passive: true });
 
         backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
