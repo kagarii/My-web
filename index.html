@@ -5,18 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Portofolio & Produk - Kyuuna</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            overscroll-behavior: none;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { overscroll-behavior: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
         body {
             font-family: 'Segoe UI', system-ui, Arial, sans-serif;
             min-height: 100vh;
@@ -29,244 +19,166 @@
             position: relative;
             cursor: default;
         }
-
         body.light-mode {
             background: linear-gradient(-45deg, #f8f2ff, #e8deff, #d9ccff, #c9b9ff);
             color: #1a0033;
         }
+        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-        @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Loading Screen - Smooth & Professional */
+        /* Loading Screen */
         #loader {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(135deg, #0a0015, #1e003a);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 1.2s ease;
-            opacity: 1;
+            position: fixed; inset: 0; background: linear-gradient(135deg, #0a0015, #1e003a);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 9999; transition: opacity 1.2s ease; opacity: 1;
         }
-
         .loader-avatar {
-            width: 140px;
-            border-radius: 50%;
-            border: 6px solid #ff85d9;
-            box-shadow: 0 0 40px rgba(255, 133, 217, 0.7);
-            opacity: 0;
-            transform: scale(0.7);
-            animation: loadAvatar 1.4s forwards 0.3s;
+            width: 140px; border-radius: 50%; border: 6px solid #ff85d9; box-shadow: 0 0 40px rgba(255,133,217,0.7);
+            opacity: 0; transform: scale(0.7); animation: loadAvatar 1.4s forwards 0.3s;
         }
-
-        @keyframes loadAvatar {
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
+        @keyframes loadAvatar { to { opacity: 1; transform: scale(1); } }
         .loader-text {
-            color: #ff85d9;
-            margin-top: 30px;
-            font-size: 1.6rem;
-            font-weight: bold;
-            text-shadow: 0 0 20px rgba(255, 133, 217, 0.8);
-            opacity: 0;
-            animation: fadeInText 1.6s forwards 0.8s;
+            color: #ff85d9; margin-top: 30px; font-size: 1.6rem; font-weight: bold;
+            text-shadow: 0 0 20px rgba(255,133,217,0.8); opacity: 0; animation: fadeInText 1.6s forwards 0.8s;
         }
+        @keyframes fadeInText { to { opacity: 1; } }
 
-        @keyframes fadeInText {
-            to { opacity: 1; }
-        }
-
-        /* Progress Bar */
         #progress-bar {
-            position: fixed;
-            top: 0; left: 0;
-            width: 0%; height: 4px;
-            background: linear-gradient(to right, #ff85d9, #d0b0ff);
-            z-index: 999;
-            box-shadow: 0 2px 10px rgba(255, 133, 217, 0.6);
-            transition: width 0.3s ease;
+            position: fixed; top: 0; left: 0; width: 0%; height: 4px;
+            background: linear-gradient(to right, #ff85d9, #d0b0ff); z-index: 999;
+            box-shadow: 0 2px 10px rgba(255,133,217,0.6); transition: width 0.3s ease;
         }
 
-        .particles {
-            position: fixed; inset: 0; pointer-events: none; z-index: -1;
-        }
-
+        .particles { position: fixed; inset: 0; pointer-events: none; z-index: -1; }
         .particle {
-            position: absolute;
-            background: rgba(187, 134, 252, 0.6);
-            border-radius: 50%;
-            box-shadow: 0 0 12px rgba(187, 134, 252, 0.8);
-            animation: float 22s infinite linear;
-            will-change: transform;
+            position: absolute; background: rgba(187,134,252,0.6); border-radius: 50%;
+            box-shadow: 0 0 12px rgba(187,134,252,0.8); animation: float 22s infinite linear; will-change: transform;
         }
-
-        @keyframes float {
-            0% { transform: translateY(100vh) scale(0.2); opacity: 0.15; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(-20vh) scale(0.5); opacity: 0; }
-        }
+        @keyframes float { 0% { transform: translateY(100vh) scale(0.2); opacity: 0.15; } 50% { opacity: 0.8; } 100% { transform: translateY(-20vh) scale(0.5); opacity: 0; } }
 
         .container { max-width: 1000px; margin: 0 auto; }
 
         .profile-header { text-align: center; margin-bottom: 70px; }
-
         .avatar {
-            width: 200px; height: 200px; border-radius: 50%;
-            border: 6px solid rgba(199, 158, 255, 0.8);
-            box-shadow: 0 0 40px rgba(199, 158, 255, 0.7);
-            object-fit: cover; margin-bottom: 25px;
+            width: 200px; height: 200px; border-radius: 50%; border: 6px solid rgba(199,158,255,0.8);
+            box-shadow: 0 0 40px rgba(199,158,255,0.7); object-fit: cover; margin-bottom: 25px;
             transition: all 0.4s ease;
         }
+        .avatar:hover { transform: scale(1.1); box-shadow: 0 0 70px rgba(255,133,217,0.9); }
 
-        .avatar:hover { transform: scale(1.1); box-shadow: 0 0 70px rgba(255, 133, 217, 0.9); }
-
-        h1 { font-size: 2.8rem; color: #ff85d9; text-shadow: 0 0 25px rgba(255, 133, 217, 0.8); margin-bottom: 10px; }
-
-        h2 {
-            color: #d0b0ff; font-size: 2.1rem; margin: 20px 0 25px;
-            text-shadow: 0 0 15px rgba(208, 176, 255, 0.8); text-align: center;
-            cursor: pointer; transition: color 0.3s;
-        }
-
+        h1 { font-size: 2.8rem; color: #ff85d9; text-shadow: 0 0 25px rgba(255,133,217,0.8); margin-bottom: 10px; }
+        h2 { color: #d0b0ff; font-size: 2.1rem; margin: 20px 0 25px; text-shadow: 0 0 15px rgba(208,176,255,0.8); text-align: center; cursor: pointer; transition: color 0.3s; }
         h2:hover { color: #ff85d9; }
-
         h2.name-heartbeat { animation: heartbeat 2.5s infinite; position: relative; display: inline-block; }
-
         h2.name-heartbeat::after {
-            content: attr(data-tooltip); position: absolute; bottom: 100%; left: 50%;
-            transform: translateX(-50%); background: rgba(30, 20, 70, 0.9); color: #ffb3e6;
-            padding: 8px 16px; border-radius: 12px; font-size: 0.9rem; white-space: nowrap;
+            content: attr(data-tooltip); position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+            background: rgba(30,20,70,0.9); color: #ffb3e6; padding: 8px 16px; border-radius: 12px; font-size: 0.9rem; white-space: nowrap;
             opacity: 0; visibility: hidden; transition: opacity 0.3s ease; pointer-events: none;
         }
-
         h2.name-heartbeat:hover::after { opacity: 1; visibility: visible; }
-
         @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
 
         h3 { color: #ffb3e6; font-size: 1.65rem; margin: 40px 0 18px; text-align: center; }
-
         .section-header { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; }
-
         .section-icon {
             width: 80px; height: 80px; border-radius: 16px; object-fit: cover;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.5); margin-bottom: 12px;
-            transition: transform 0.4s ease;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5); margin-bottom: 12px; transition: transform 0.4s ease;
         }
-
         .section:hover .section-icon { transform: scale(1.15); }
 
-        .intro {
-            text-align: center; font-size: 1.18rem; color: #e8e0ff;
-            margin: 0 auto 60px; max-width: 85%; line-height: 1.8; position: relative;
-        }
-
+        .intro { text-align: center; font-size: 1.18rem; color: #e8e0ff; margin: 0 auto 60px; max-width: 85%; line-height: 1.8; }
         .quote { margin-top: 15px; font-style: italic; color: #d0b0ff; font-size: 1.05rem; opacity: 0.9; }
-
         body.light-mode .quote { color: #7c4dff; }
 
         .visitor-count { text-align: center; font-size: 0.95rem; color: #d0b0ff; margin: 15px 0; opacity: 0.8; }
-
         body.light-mode .visitor-count { color: #7c4dff; }
 
         .section {
-            background: rgba(30, 20, 60, 0.78); backdrop-filter: blur(12px);
-            border-radius: 24px; padding: 35px; margin-bottom: 60px;
-            border: 1px solid rgba(208, 176, 255, 0.35);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.55);
-            opacity: 0; transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            background: rgba(30,20,60,0.78); backdrop-filter: blur(12px); border-radius: 24px; padding: 35px; margin-bottom: 60px;
+            border: 1px solid rgba(208,176,255,0.35); box-shadow: 0 12px 40px rgba(0,0,0,0.55);
+            opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease;
         }
-
         .section.visible { opacity: 1; transform: translateY(0); }
-
         body.light-mode .section {
-            background: rgba(255, 255, 255, 0.82); border: 1px solid rgba(199, 158, 255, 0.25);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+            background: rgba(255,255,255,0.82); border: 1px solid rgba(199,158,255,0.25); box-shadow: 0 12px 40px rgba(0,0,0,0.12);
         }
 
         ul { list-style: none; padding-left: 0; }
-
         li { margin: 14px 0; padding-left: 32px; position: relative; font-size: 1.08rem; }
-
         body.light-mode li { color: #2d1a5e; }
-
         li:before { content: "✦"; color: #ffb3e6; position: absolute; left: 0; font-size: 1.35rem; }
-
-        .price { color: #fff59d; font-weight: bold; text-shadow: 0 0 8px rgba(255, 245, 157, 0.7); }
+        .price { color: #fff59d; font-weight: bold; text-shadow: 0 0 8px rgba(255,245,157,0.7); }
 
         .btn {
-            display: inline-block; background: linear-gradient(135deg, #25d366, #1eb954);
-            color: white; font-weight: bold; padding: 16px 36px; border-radius: 50px;
-            text-decoration: none; margin-top: 25px; transition: all 0.4s ease;
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6); font-size: 1.1rem;
-            position: relative; overflow: hidden;
+            display: inline-block; background: linear-gradient(135deg, #25d366, #1eb954); color: white; font-weight: bold;
+            padding: 16px 36px; border-radius: 50px; text-decoration: none; margin-top: 25px; transition: all 0.4s ease;
+            box-shadow: 0 6px 20px rgba(37,211,102,0.6); font-size: 1.1rem; position: relative; overflow: hidden;
         }
-
         .btn::before {
             content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0;
-            background: rgba(255, 255, 255, 0.3); border-radius: 50%;
-            transform: translate(-50%, -50%); opacity: 0;
+            background: rgba(255,255,255,0.3); border-radius: 50%; transform: translate(-50%,-50%); opacity: 0;
             transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
         }
-
         .btn:active::before { width: 300px; height: 300px; opacity: 1; }
+        .btn:hover { transform: scale(1.08) translateY(-4px); box-shadow: 0 14px 35px rgba(37,211,102,0.9); }
 
-        .btn:hover { transform: scale(1.08) translateY(-4px); box-shadow: 0 14px 35px rgba(37, 211, 102, 0.9); }
-
-        #mode-toggle, #music-toggle {
-            position: fixed; top: 20px; z-index: 100;
-            background: rgba(30, 20, 70, 0.88); border: 2px solid #d0b0ff;
-            color: #d0b0ff; border-radius: 50%; cursor: pointer;
-            backdrop-filter: blur(8px); transition: all 0.3s;
-            display: flex; align-items: center; justify-content: center;
+        /* Mode, Music, Menu Toggle - z-index rendah supaya tertutup sidebar */
+        #mode-toggle, #music-toggle, #menu-toggle {
+            position: fixed; top: 20px; z-index: 99; /* lebih rendah dari sidebar */
+            background: rgba(30,20,70,0.88); border: 2px solid #d0b0ff;
+            color: #d0b0ff; border-radius: 50%; cursor: pointer; backdrop-filter: blur(8px);
+            transition: all 0.3s; display: flex; align-items: center; justify-content: center;
             will-change: transform, background;
         }
-
         #mode-toggle { left: 20px; width: 54px; height: 54px; font-size: 1.5rem; }
-
         #music-toggle { right: 20px; padding: 0 22px; height: 54px; font-size: 1.05rem; border-radius: 30px; }
-
-        #mode-toggle:hover, #music-toggle:hover {
-            background: rgba(50, 40, 100, 0.98);
-            transform: scale(1.12);
-            box-shadow: 0 0 25px rgba(208, 176, 255, 0.6);
+        #menu-toggle { left: 80px; width: 54px; height: 54px; font-size: 1.8rem; }
+        #mode-toggle:hover, #music-toggle:hover, #menu-toggle:hover {
+            background: rgba(50,40,100,0.98); transform: scale(1.12); box-shadow: 0 0 25px rgba(208,176,255,0.6);
         }
+
+        /* Sidebar & Overlay - z-index tinggi supaya cover semua toggle */
+        #sidebar {
+            position: fixed; top: 0; left: -300px; width: 280px; height: 100%;
+            background: rgba(30,20,70,0.95); backdrop-filter: blur(12px); border-right: 1px solid rgba(208,176,255,0.3);
+            box-shadow: 4px 0 30px rgba(0,0,0,0.5); transition: left 0.4s cubic-bezier(0.25,0.8,0.25,1);
+            z-index: 200; padding-top: 80px;
+        }
+        #sidebar.active { left: 0; }
+
+        .sidebar-item {
+            color: #d0b0ff; padding: 18px 25px; font-size: 1.1rem; cursor: pointer; transition: all 0.3s;
+            border-bottom: 1px solid rgba(208,176,255,0.15);
+        }
+        .sidebar-item:hover { background: rgba(50,40,100,0.5); color: #ff85d9; padding-left: 35px; }
+
+        .sidebar-close {
+            position: absolute; top: 20px; right: 20px; color: #ff85d9; font-size: 1.8rem;
+            cursor: pointer; transition: transform 0.3s;
+        }
+        .sidebar-close:hover { transform: rotate(90deg); }
+
+        #overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6); opacity: 0; visibility: hidden;
+            transition: opacity 0.4s; z-index: 199;
+        }
+        #overlay.active { opacity: 1; visibility: visible; }
 
         #back-to-top {
             position: fixed; bottom: 40px; right: 30px; width: 54px; height: 54px;
-            background: rgba(30, 20, 70, 0.92); border: 2px solid #d0b0ff;
-            color: #d0b0ff; font-size: 1.7rem; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; opacity: 0; visibility: hidden;
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            z-index: 99; box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            background: rgba(30,20,70,0.92); border: 2px solid #d0b0ff; color: #d0b0ff; font-size: 1.7rem; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; visibility: hidden;
+            transition: opacity 0.4s ease, transform 0.4s ease; z-index: 99; box-shadow: 0 6px 20px rgba(0,0,0,0.5);
         }
-
         #back-to-top.visible { opacity: 1; visibility: visible; }
-
         #back-to-top:hover { transform: scale(1.15); }
 
         footer {
             text-align: center; margin-top: 90px; padding-top: 50px;
-            border-top: 1px solid rgba(208, 176, 255, 0.35); color: #e0dfff; font-size: 0.97rem;
+            border-top: 1px solid rgba(208,176,255,0.35); color: #e0dfff; font-size: 0.97rem;
         }
-
-        body.light-mode footer { color: #3c1a7a; border-top-color: rgba(199, 158, 255, 0.25); }
-
+        body.light-mode footer { color: #3c1a7a; border-top-color: rgba(199,158,255,0.25); }
         footer a { color: #d0b0ff; text-decoration: none; margin: 0 14px; }
-
         body.light-mode footer a { color: #7c4dff; }
-
         footer a:hover { color: #ff85d9; }
 
         @media (max-width: 600px) {
@@ -282,7 +194,7 @@
 </head>
 <body>
 
-    <!-- Loading Screen - Muncul setiap kali reload / masuk halaman -->
+    <!-- Loading Screen -->
     <div id="loader" class="loader">
         <img src="https://raw.githubusercontent.com/kagarii/Pict/refs/heads/main/New%20Project%2025%20%5BAA5E64D%5D.png" alt="Kyuuna" class="loader-avatar">
         <p class="loader-text">Loading Kyuuna's World 🍁</p>
@@ -293,7 +205,21 @@
 
     <div class="particles" id="particles"></div>
 
-    <!-- Toggles -->
+    <!-- Menu Toggle -->
+    <div id="menu-toggle">☰</div>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div class="sidebar-close" onclick="closeSidebar()">×</div>
+        <div class="sidebar-item" onclick="window.location.href='#about'; closeSidebar()">About Us</div>
+        <div class="sidebar-item" onclick="window.location.href='https://saweria.co/kyuuna'; closeSidebar()">Support Us / Donation</div>
+        <div class="sidebar-item" onclick="window.location.href='portfolio.html'; closeSidebar()">Portfolio</div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" onclick="closeSidebar()"></div>
+
+    <!-- Mode & Music Toggle -->
     <div id="mode-toggle">🌙</div>
     <div id="music-toggle">Play Music 🍃</div>
 
@@ -303,13 +229,7 @@
         Your browser does not support the audio element.
     </audio>
 
-    <!-- Click Sound -->
-    <audio id="clickSound">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-complete-or-approved-mission-2059.mp3" type="audio/mpeg">
-    </audio>
-
     <div class="container">
-
         <div class="profile-header">
             <img src="https://raw.githubusercontent.com/kagarii/Pict/refs/heads/main/New%20Project%2025%20%5BAA5E64D%5D.png" alt="Kyuuna Profile" class="avatar">
             <h1>Portfolio & Produk</h1>
@@ -412,32 +332,24 @@
             </p>
             <p>© all copyright reserved // ®</p>
         </footer>
-
     </div>
 
-    <!-- Back to Top Button -->
+    <!-- Back to Top -->
     <div id="back-to-top">↑</div>
 
-    <!-- Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
     <script>
-        // Loading Screen - Muncul setiap kali halaman dimuat (reload, back, masuk page)
+        // Loading Screen - Muncul setiap kali load/reload/back
         window.addEventListener('load', () => {
-            // Paksa tunjuk loader setiap kali load (tak kisah dari mana)
             const loader = document.getElementById('loader');
             loader.style.opacity = '1';
             loader.style.display = 'flex';
-
-            // Paksa reflow supaya tak ada jitter
             document.body.offsetHeight;
-
             setTimeout(() => {
                 loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 1200); // masa fade out
-            }, 2000); // tunjuk loading 2 saat (boleh ubah kalau nak lebih lama)
+                setTimeout(() => loader.style.display = 'none', 1200);
+            }, 2000);
         });
 
         // Visitor Counter
@@ -446,7 +358,7 @@
         localStorage.setItem('visits', visits);
         document.getElementById('visitorCount').innerHTML = `Halaman ini telah dikunjungi <strong>${visits}</strong> kali`;
 
-        // Random Anime Quote
+        // Random Quote
         const quotes = [
             "『Kau tak pernah tahu seberapa kuat kau sampai hari kau benar-benar perlu jadi kuat』 — Naruto",
             "『Aku akan terus maju, walaupun dunia bilang aku tak boleh』 — Luffy",
@@ -454,31 +366,16 @@
             "『Jangan takut gagal, takutlah kalau tak pernah cuba』 — Deku",
             "『Hidup ni macam anime — ada plot twist, ada OST best, dan endingnya kau yang tentukan』 — Kyuuna"
         ];
-        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-        document.getElementById('randomQuote').textContent = `"${randomQuote}"`;
+        document.getElementById('randomQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
 
-        // Keyboard Shortcut: Press T to toggle theme
+        // Keyboard T to toggle theme
         document.addEventListener('keydown', e => {
             if (e.key.toLowerCase() === 't') {
                 document.body.classList.toggle('light-mode');
-                modeBtn.textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
+                document.getElementById('mode-toggle').textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
                 localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
             }
         });
-
-        // Custom Cursor (disable on mobile)
-        if (!('ontouchstart' in window)) {
-            const cursor = document.createElement('div');
-            cursor.className = 'cursor';
-            document.body.appendChild(cursor);
-
-            document.addEventListener('mousemove', e => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-            });
-            document.addEventListener('mousedown', () => cursor.classList.add('active'));
-            document.addEventListener('mouseup', () => cursor.classList.remove('active'));
-        }
 
         // Progress Bar
         window.addEventListener('scroll', () => {
@@ -488,37 +385,16 @@
             document.getElementById('progress-bar').style.width = scrolled + '%';
         }, { passive: true });
 
-        // Back to Top - ULTRA STABLE
+        // Back to Top
         const backToTop = document.getElementById('back-to-top');
-        let lastScroll = 0;
-        let ticking = false;
-        let scrollTimer = null;
-
         window.addEventListener('scroll', () => {
-            lastScroll = window.scrollY;
-
-            clearTimeout(scrollTimer);
-            scrollTimer = setTimeout(() => {
-                if (!ticking) {
-                    window.requestAnimationFrame(() => {
-                        if (lastScroll > 400) {
-                            backToTop.classList.add('visible');
-                        } else {
-                            backToTop.classList.remove('visible');
-                        }
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            }, 100);
+            backToTop.classList.toggle('visible', window.scrollY > 400);
         }, { passive: true });
-
         backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
         // Music Toggle
         const music = document.getElementById('bgMusic');
         const musicBtn = document.getElementById('music-toggle');
-
         musicBtn.addEventListener('click', () => {
             if (music.paused) {
                 music.play().catch(e => console.log("Play blocked", e));
@@ -529,12 +405,11 @@
             }
         });
 
-        // Pause music when tab inactive
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) music.pause();
         });
 
-        // Dark/Light Mode with localStorage
+        // Dark Mode
         const modeBtn = document.getElementById('mode-toggle');
         if (localStorage.getItem('theme') === 'light') {
             document.body.classList.add('light-mode');
@@ -542,20 +417,14 @@
         }
         modeBtn.addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
-            const isLight = document.body.classList.contains('light-mode');
-            modeBtn.textContent = isLight ? '☀️' : '🌙';
-            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            modeBtn.textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
+            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
         });
 
         // Confetti
         document.querySelectorAll('.btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                confetti({
-                    particleCount: 80,
-                    spread: 70,
-                    origin: { y: 0.6 },
-                    colors: ['#ff85d9', '#d0b0ff', '#ffb3e6', '#fff59d']
-                });
+                confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 }, colors: ['#ff85d9', '#d0b0ff', '#ffb3e6', '#fff59d'] });
             });
         });
 
@@ -572,7 +441,6 @@
             document.getElementById('particles').appendChild(p);
             setTimeout(() => p.remove(), 30000);
         }
-
         setInterval(createParticle, 800);
         for (let i = 0; i < 12; i++) createParticle();
 
@@ -583,16 +451,28 @@
                 if (entry.isIntersecting) entry.target.classList.add('visible');
             });
         }, { threshold: 0.1 });
-
         sections.forEach(section => observer.observe(section));
 
-        // Highlight section title on click
+        // Highlight h2
         document.querySelectorAll('h2').forEach(h => {
             h.addEventListener('click', () => {
                 h.style.color = '#ff85d9';
                 setTimeout(() => h.style.color = '#d0b0ff', 800);
             });
         });
+
+        // Sidebar Control
+        function openSidebar() {
+            document.getElementById('sidebar').classList.add('active');
+            document.getElementById('overlay').classList.add('active');
+        }
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+        }
+        document.getElementById('menu-toggle').addEventListener('click', openSidebar);
+        document.getElementById('overlay').addEventListener('click', closeSidebar);
+        document.querySelector('.sidebar-close').addEventListener('click', closeSidebar);
     </script>
 
 </body>
