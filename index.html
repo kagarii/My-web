@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Portofolio & Produk - Kyuuna</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            overscroll-behavior: none; /* cegah bounce/overscroll pada iOS/Android */
+            touch-action: manipulation; /* smooth touch tanpa delay */
+            -webkit-tap-highlight-color: transparent; /* hilangkan highlight biru pada tap */
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, Arial, sans-serif;
+            min-height: 100vh;
+            color: #f8f8ff;
+            background: linear-gradient(-45deg, #0a0015, #140028, #1e003a, #28004f);
+            background-size: 400% 400%;
+            animation: gradientFlow 25s ease infinite;
+            line-height: 1.6;
+            padding: 80px 15px 100px; /* tambah padding bawah supaya back-to-top tak overlap content */
+            position: relative;
+            cursor: default; /* default cursor pada phone */
+        }
+
+        body.light-mode {
+            background: linear-gradient(-45deg, #f8f2ff, #e8deff, #d9ccff, #c9b9ff);
+            color: #1a0033;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        #progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%; height: 4px;
+            background: linear-gradient(to right, #ff85d9, #d0b0ff);
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(255, 133, 217, 0.6);
+            transition: width 0.3s ease;
+        }
+
+        .particles {
+            position: fixed; inset: 0; pointer-events: none; z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(187, 134, 252, 0.6);
+            border-radius: 50%;
+            box-shadow: 0 0 12px rgba(187, 134, 252, 0.8);
+            animation: float 22s infinite linear;
+            will-change: transform; /* optimize performance */
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0.2); opacity: 0.15; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-20vh) scale(0.5); opacity: 0; }
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .profile-header { text-align: center; margin-bottom: 70px; }
+
+        .avatar {
+            width: 200px; height: 200px; border-radius: 50%;
+            border: 6px solid rgba(199, 158, 255, 0.8);
+            box-shadow: 0 0 40px rgba(199, 158, 255, 0.7);
+            object-fit: cover; margin-bottom: 25px;
+            transition: all 0.4s ease;
+        }
+
+        .avatar:hover { transform: scale(1.1); box-shadow: 0 0 70px rgba(255, 133, 217, 0.9); }
+
+        h1 { font-size: 2.8rem; color: #ff85d9; text-shadow: 0 0 25px rgba(255, 133, 217, 0.8); margin-bottom: 10px; }
+
+        h2 {
+            color: #d0b0ff; font-size: 2.1rem; margin: 20px 0 25px;
+            text-shadow: 0 0 15px rgba(208, 176, 255, 0.8); text-align: center;
+            cursor: pointer; transition: color 0.3s;
+        }
+
+        h2:hover { color: #ff85d9; }
+
+        h2.name-heartbeat { animation: heartbeat 2.5s infinite; position: relative; display: inline-block; }
+
+        h2.name-heartbeat::after {
+            content: attr(data-tooltip); position: absolute; bottom: 100%; left: 50%;
+            transform: translateX(-50%); background: rgba(30, 20, 70, 0.9); color: #ffb3e6;
+            padding: 8px 16px; border-radius: 12px; font-size: 0.9rem; white-space: nowrap;
+            opacity: 0; visibility: hidden; transition: opacity 0.3s ease; pointer-events: none;
+        }
+
+        h2.name-heartbeat:hover::after { opacity: 1; visibility: visible; }
+
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+
+        h3 { color: #ffb3e6; font-size: 1.65rem; margin: 40px 0 18px; text-align: center; }
+
+        .section-header { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; }
+
+        .section-icon {
+            width: 80px; height: 80px; border-radius: 16px; object-fit: cover;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5); margin-bottom: 12px;
+            transition: transform 0.4s ease; will-change: transform;
+        }
+
+        .section:hover .section-icon { transform: scale(1.15); }
+
+        .intro {
+            text-align: center; font-size: 1.18rem; color: #e8e0ff;
+            margin: 0 auto 60px; max-width: 85%; line-height: 1.8; position: relative;
+        }
+
+        .quote { margin-top: 15px; font-style: italic; color: #d0b0ff; font-size: 1.05rem; opacity: 0.9; }
+
+        body.light-mode .quote { color: #7c4dff; }
+
+        .visitor-count { text-align: center; font-size: 0.95rem; color: #d0b0ff; margin: 15px 0; opacity: 0.8; }
+
+        body.light-mode .visitor-count { color: #7c4dff; }
+
+        .section {
+            background: rgba(30, 20, 60, 0.78); backdrop-filter: blur(12px);
+            border-radius: 24px; padding: 35px; margin-bottom: 60px;
+            border: 1px solid rgba(208, 176, 255, 0.35);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.55);
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            will-change: opacity, transform;
+        }
+
+        .section.visible { opacity: 1; transform: translateY(0); }
+
+        body.light-mode .section {
+            background: rgba(255, 255, 255, 0.82); border: 1px solid rgba(199, 158, 255, 0.25);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        ul { list-style: none; padding-left: 0; }
+
+        li { margin: 14px 0; padding-left: 32px; position: relative; font-size: 1.08rem; }
+
+        body.light-mode li { color: #2d1a5e; }
+
+        li:before { content: "✦"; color: #ffb3e6; position: absolute; left: 0; font-size: 1.35rem; }
+
+        .price { color: #fff59d; font-weight: bold; text-shadow: 0 0 8px rgba(255, 245, 157, 0.7); }
+
+        .btn {
+            display: inline-block; background: linear-gradient(135deg, #25d366, #1eb954);
+            color: white; font-weight: bold; padding: 16px 36px; border-radius: 50px;
+            text-decoration: none; margin-top: 25px; transition: all 0.4s ease;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6); font-size: 1.1rem;
+            position: relative; overflow: hidden;
+        }
+
+        .btn::before {
+            content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0;
+            background: rgba(255, 255, 255, 0.3); border-radius: 50%;
+            transform: translate(-50%, -50%); opacity: 0;
+            transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
+        }
+
+        .btn:active::before { width: 300px; height: 300px; opacity: 1; }
+
+        .btn:hover { transform: scale(1.08) translateY(-4px); box-shadow: 0 14px 35px rgba(37, 211, 102, 0.9); }
+
+        #mode-toggle, #music-toggle {
+            position: fixed; top: 20px; z-index: 100;
+            background: rgba(30, 20, 70, 0.88); border: 2px solid #d0b0ff;
+            color: #d0b0ff; border-radius: 50%; cursor: pointer;
+            backdrop-filter: blur(8px); transition: all 0.3s;
+            display: flex; align-items: center; justify-content: center;
+            will-change: transform, background;
+        }
+
+        #mode-toggle { left: 20px; width: 54px; height: 54px; font-size: 1.5rem; }
+
+        #music-toggle { right: 20px; padding: 0 22px; height: 54px; font-size: 1.05rem; border-radius: 30px; }
+
+        #mode-toggle:hover, #music-toggle:hover { background: rgba(50, 40, 100, 0.98); transform: scale(1.12); }
+
+        #back-to-top {
+            position: fixed; bottom: 40px; right: 30px; width: 54px; height: 54px;
+            background: rgba(30, 20, 70, 0.92); border: 2px solid #d0b0ff;
+            color: #d0b0ff; font-size: 1.7rem; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; opacity: 0; visibility: hidden;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            z-index: 99; box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            will-change: opacity, transform;
+        }
+
+        #back-to-top.visible { opacity: 1; visibility: visible; }
+
+        #back-to-top:hover { transform: scale(1.15); }
+
+        footer {
+            text-align: center; margin-top: 90px; padding-top: 50px;
+            border-top: 1px solid rgba(208, 176, 255, 0.35); color: #e0dfff; font-size: 0.97rem;
+        }
+
+        body.light-mode footer { color: #3c1a7a; border-top-color: rgba(199, 158, 255, 0.25); }
+
+        footer a { color: #d0b0ff; text-decoration: none; margin: 0 14px; }
+
+        body.light-mode footer a { color: #7c4dff; }
+
+        footer a:hover { color: #ff85d9; }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.4rem; }
+            h2 { font-size: 1.8rem; }
+            .avatar { width: 140px; height: 140px; }
+            .section-icon { width: 70px; height: 70px; }
+            .section { padding: 25px; margin-bottom: 45px; }
+            .btn { padding: 14px 30px; font-size: 1rem; }
+            #back-to-top { bottom: 30px; right: 20px; width: 50px; height: 50px; font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Progress Bar -->
+    <div id="progress-bar"></div>
+
+    <div class="particles" id="particles"></div>
+
+    <!-- Toggles -->
+    <div id="mode-toggle">🌙</div>
+    <div id="music-toggle">Play Music 🍃</div>
+
+    <!-- Audio -->
+    <audio id="bgMusic" loop>
+        <source src="https://files.catbox.moe/psfyjm.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Click Sound -->
+    <audio id="clickSound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-complete-or-approved-mission-2059.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+
+        <div class="profile-header">
+            <img src="https://files.catbox.moe/h00o02.jpg" alt="Kyuuna Profile" class="avatar">
+            <h1>Portfolio & Produk</h1>
+            <h2 class="name-heartbeat" data-tooltip="Kyuuna: 'Coding sambil dengar OST anime tu best gila!'">Kyuuna 🍁</h2>
+            <div style="height: 3px; background: linear-gradient(to right, transparent, #d0b0ff, transparent); margin: 30px 0;"></div>
+        </div>
+
+        <div class="intro">
+            <p>Selamat datang di portfolio atau produk saya — tempat di mana teknologi bertemu kreativitas dan inovasi.<br>Mari wujudkan ide menjadi kenyataan bersama!</p>
+            <div class="quote" id="randomQuote"></div>
+        </div>
+
+        <div class="visitor-count" id="visitorCount"></div>
+
+        <div class="section">
+            <div class="section-header">
+                <img src="https://files.catbox.moe/7zp26l.jpg" class="section-icon" alt="Panel Icon">
+                <h2>Panel Pterodactyl 📡</h2>
+            </div>
+
+            <h3>PANEL PRIVAT R16 C8 ✨</h3>
+            <ul>
+                <li>RAM 5GB : <span class="price">5K</span></li>
+                <li>RAM 6GB : <span class="price">6K</span></li>
+                <li>RAM 7GB : <span class="price">7K</span></li>
+                <li>RAM 8GB : <span class="price">8K</span></li>
+                <li>RAM 9GB : <span class="price">7K</span></li>
+                <li>RAM UNLI : <span class="price">10K</span></li>
+                <li>RESELLER : <span class="price">20K</span></li>
+            </ul>
+            <a href="https://wa.me/60143643556?text=Mau Beli Panel R16 C8" class="btn">Contact Kyuuna 🍁</a>
+
+            <h3>PANEL PRIVAT R32 C8 ✨</h3>
+            <ul>
+                <li>RAM 4GB : <span class="price">5K</span></li>
+                <li>RAM 5GB : <span class="price">6K</span></li>
+                <li>RAM 6GB : <span class="price">7K</span></li>
+                <li>RAM 7GB : <span class="price">8K</span></li>
+                <li>RAM 8GB : <span class="price">9K</span></li>
+                <li>RAM 10GB : <span class="price">11K</span></li>
+                <li>RAM UNLI : <span class="price">15K</span></li>
+                <li>RESELLER : <span class="price">30K</span></li>
+            </ul>
+            <a href="https://wa.me/60143643556?text=Mau Beli Panel R32 C8" class="btn">Contact Kyuuna 🍁</a>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <img src="https://i.imgur.com/QkXj8vL.png" class="section-icon" alt="Produk Icon">
+                <h2>✨ Produk Lainnya ✨</h2>
+            </div>
+
+            <h3>NOKOS WHATSAPP ✨</h3>
+            <ul>
+                <li>HARGA NOKOS TERGANTUNG REGION</li>
+                <li>ALL REGION ADA SILAHKAH TANYA</li>
+                <li>MURID NOKOS VVIP : <span class="price">15K</span></li>
+                <li>MURID NOKOS VIP : <span class="price">10K</span></li>
+            </ul>
+            <p>Benefit Murid</p>
+            <a href="https://wa.me/60143643556?text=Mau Buy Nokos ✨" class="btn">Contact Kyuuna 🍁</a>
+
+            <h3>SEWA BOT  KYUUNA - MD 🍁</h3>
+            <ul>
+                <li>SEWA 1 MINGGU: <span class="price"> 12K</span></li>
+                <li>SEWA 2 MINGGU: <span class="price"> 25K</span></li>
+                <li>SEWA 1 BULAN: <span class="price"> 45K</span></li>
+                <li>SEWA PERMANEN: <span class="price">  95K</span></li>
+            </ul>
+            <a href="https://wa.me/60143643556?text=Mau Sewa Bot Jaga Grup 💤" class="btn">Contact Kyuuna 🍁</a>
+
+            <h3>WA GB</h3>
+            <ul>
+                <li>WA GB IMMUNE</li>
+                <li>WA GB BASIC</li>
+            </ul>
+            <p>Klik tombol untuk order ✨</p>
+            <a href="https://wa.me/60143643556?text=Info WA GB Nya" class="btn">Contact Kyuuna 🍁</a>
+
+            <h3>PRODUK TAMBAHAN 🌌</h3>
+            <ul>
+                <li>ALIGHT MOTION PREM PRIVATE (1TAHUN) 15K</li>
+                <li>JASA RENAME SCRIPT 20K</li>
+                <li>JASA PEMBUATAN WEBSITE PAYMENT 30K</li>
+                <li>JADI BOT WA</li>
+                <li>RESELLER AM PREM 20K</li>
+            </ul>
+            <p>Klik tombol untuk order ✨</p>
+            <a href="https://wa.me/60143643556?text=Mau Order 🌌" class="btn">Contact Kyuuna 🍁</a>
+        </div>
+
+        <footer>
+            <p>
+                <a href="https://t.me/irnxs">My Telegram</a> •
+                <a href="https://whatsapp.com/channel/0029VbBg7LJIiRomEuB0MR3Z">Channel Utama</a> •
+                <a href="https://whatsapp.com/channel/0029VbBg7LJIiRomEuB0MR3Z">Channel Testimoni</a>
+            </p>
+            <p style="margin: 30px 0;">
+                <a href="content://ru.zdevs.zarchiver.external/storage/emulated/0/Download/Ha/pay/index.html">Kunjungi Website Pembayaran Shiro</a>
+            </p>
+            <p> ©all copyright reserved // ®</p>
+        </footer>
+
+    </div>
+
+    <!-- Back to Top Button -->
+    <div id="back-to-top">↑</div>
+
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+    <script>
+        // Visitor Counter
+        let visits = localStorage.getItem('visits') || 0;
+        visits++;
+        localStorage.setItem('visits', visits);
+        document.getElementById('visitorCount').innerHTML = `Halaman ini telah dikunjungi <strong>${visits}</strong> kali`;
+
+        // Random Anime Quote
+        const quotes = [
+            "『Kau tak pernah tahu seberapa kuat kau sampai hari kau benar-benar perlu jadi kuat』 — Naruto",
+            "『Aku akan terus maju, walaupun dunia bilang aku tak boleh』 — Luffy",
+            "『Yang penting bukan seberapa besar kekuatanmu, tapi seberapa besar kau mahu melindungi orang yang kau sayang』 — Ichigo",
+            "『Jangan takut gagal, takutlah kalau tak pernah cuba』 — Deku",
+            "『Hidup ni macam anime — ada plot twist, ada OST best, dan endingnya kau yang tentukan』 — Kyuuna"
+        ];
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        document.getElementById('randomQuote').textContent = `"${randomQuote}"`;
+
+        // Keyboard Shortcut: Press T to toggle theme
+        document.addEventListener('keydown', e => {
+            if (e.key.toLowerCase() === 't') {
+                document.body.classList.toggle('light-mode');
+                modeBtn.textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
+                localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+            }
+        });
+
+        // Custom Cursor (disable on mobile)
+        if (!('ontouchstart' in window)) {
+            const cursor = document.createElement('div');
+            cursor.className = 'cursor';
+            document.body.appendChild(cursor);
+
+            document.addEventListener('mousemove', e => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+            document.addEventListener('mousedown', () => cursor.classList.add('active'));
+            document.addEventListener('mouseup', () => cursor.classList.remove('active'));
+        }
+
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progress-bar').style.width = scrolled + '%';
+        }, { passive: true });
+
+        // Back to Top - ULTRA STABLE VERSION (no jitter on phone)
+        const backToTop = document.getElementById('back-to-top');
+        let lastScroll = 0;
+        let ticking = false;
+        let scrollTimer = null;
+
+        window.addEventListener('scroll', () => {
+            lastScroll = window.scrollY;
+
+            clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(() => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        if (lastScroll > 400) {  // threshold lebih tinggi supaya tak sensitif
+                            backToTop.classList.add('visible');
+                        } else {
+                            backToTop.classList.remove('visible');
+                        }
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, 100);  // debounce 100ms supaya tak update terlalu kerap
+        }, { passive: true });
+
+        backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        // Music Toggle
+        const music = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('music-toggle');
+
+        musicBtn.addEventListener('click', () => {
+            if (music.paused) {
+                music.play().catch(e => console.log("Play blocked", e));
+                musicBtn.textContent = "Pause Music 🍃";
+            } else {
+                music.pause();
+                musicBtn.textContent = "Play Music 🍃";
+            }
+        });
+
+        // Pause music when tab inactive
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) music.pause();
+        });
+
+        // Dark/Light Mode with localStorage
+        const modeBtn = document.getElementById('mode-toggle');
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-mode');
+            modeBtn.textContent = '☀️';
+        }
+        modeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            const isLight = document.body.classList.contains('light-mode');
+            modeBtn.textContent = isLight ? '☀️' : '🌙';
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        });
+
+        // Confetti
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                confetti({
+                    particleCount: 80,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#ff85d9', '#d0b0ff', '#ffb3e6', '#fff59d']
+                });
+            });
+        });
+
+        // Particles
+        function createParticle() {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            const size = Math.random() * 6 + 3;
+            p.style.width = `${size}px`;
+            p.style.height = `${size}px`;
+            p.style.left = `${Math.random() * 100}vw`;
+            p.style.animationDuration = `${Math.random() * 15 + 15}s`;
+            p.style.animationDelay = `${Math.random() * 5}s`;
+            document.getElementById('particles').appendChild(p);
+            setTimeout(() => p.remove(), 30000);
+        }
+
+        setInterval(createParticle, 800);
+        for (let i = 0; i < 12; i++) createParticle();
+
+        // Section Fade-in
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => observer.observe(section));
+
+        // Highlight section title on click
+        document.querySelectorAll('h2').forEach(h => {
+            h.addEventListener('click', () => {
+                h.style.color = '#ff85d9';
+                setTimeout(() => h.style.color = '#d0b0ff', 800);
+            });
+        });
+    </script>
+
+</body>
+</html>
