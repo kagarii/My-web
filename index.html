@@ -52,6 +52,7 @@
             justify-content: center;
             z-index: 9999;
             transition: opacity 1.2s ease;
+            opacity: 1;
         }
 
         .loader-avatar {
@@ -281,7 +282,7 @@
 </head>
 <body>
 
-    <!-- Loading Screen - Smooth & Professional -->
+    <!-- Loading Screen - Muncul setiap kali reload / masuk halaman -->
     <div id="loader" class="loader">
         <img src="https://raw.githubusercontent.com/kagarii/Pict/refs/heads/main/New%20Project%2025%20%5BAA5E64D%5D.png" alt="Kyuuna" class="loader-avatar">
         <p class="loader-text">Loading Kyuuna's World 🍁</p>
@@ -299,6 +300,7 @@
     <!-- Audio -->
     <audio id="bgMusic" loop>
         <source src="https://files.catbox.moe/psfyjm.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
     </audio>
 
     <!-- Click Sound -->
@@ -420,17 +422,22 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
     <script>
-        // Loading Screen - Smooth & No Jitter
+        // Loading Screen - Muncul setiap kali halaman dimuat (reload, back, masuk page)
         window.addEventListener('load', () => {
-            // Paksa reflow supaya tak jitter
+            // Paksa tunjuk loader setiap kali load (tak kisah dari mana)
+            const loader = document.getElementById('loader');
+            loader.style.opacity = '1';
+            loader.style.display = 'flex';
+
+            // Paksa reflow supaya tak ada jitter
             document.body.offsetHeight;
+
             setTimeout(() => {
-                const loader = document.getElementById('loader');
                 loader.style.opacity = '0';
                 setTimeout(() => {
                     loader.style.display = 'none';
-                }, 1200); // fade out duration + buffer
-            }, 2000); // tunjuk loading 2 saat
+                }, 1200); // masa fade out
+            }, 2000); // tunjuk loading 2 saat (boleh ubah kalau nak lebih lama)
         });
 
         // Visitor Counter
